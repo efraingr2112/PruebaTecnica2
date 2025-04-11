@@ -1,0 +1,7 @@
+{
+  "name": "Pansa_tech",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
