@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable prefer-const */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { IonButton, IonButtons, IonCard, IonCol, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonMenuButton, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { checkmark } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
 import { useHistory, useParams, useRouteMatch } from 'react-router';
 import Provedores from './Provedores';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { saveProvedor, searchProvedorById } from './ProvedoresApi';
 
 
@@ -13,20 +16,17 @@ const ProvedoresEdit: React.FC = () => {
   const [provedores, setProvedores] = useState<Provedores>({});
   const history = useHistory();
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const routeMatch: any = useRouteMatch("/page/provedores/:id");
   const id = routeMatch?.params?.id;
 
   useEffect(() => {
     search();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history.location.pathname]);
 
   const search = async () => {
     if (id === 'new') {
       setProvedores({});
     } else {
-      // eslint-disable-next-line prefer-const
       let result = await searchProvedorById(id);
       setProvedores(result);
     }
@@ -34,7 +34,7 @@ const ProvedoresEdit: React.FC = () => {
 
   const save = () => {
     setProvedores(provedores);
-    history.push('/page/provedoress');
+    history.push('/page/provedores');
   }
 
   return (

@@ -14,7 +14,7 @@ import Customer from './Customer';
 
 const CustomerList= () => {
   const { name } = useParams<{ name: string; }>();
-  const roueMatch: any = useRouteMatch("'page/customers/:id")
+  const roueMatch: any = useRouteMatch("'page/usuario/:id")
   const [usuarios, setUsuarios] = useState<Customer[]>([]);
   const history = useHistory();
 
@@ -34,10 +34,10 @@ const CustomerList= () => {
 
     }
   const addCustomer = () =>{
-    history.push('/page/customer/new');
+    history.push('/page/usuario/new');
   }
   const editCustomer = (id:string) =>{
-    history.push('/page/customer/'+ id);
+    history.push('/page/usuario/'+ id);
 
   }  
 
