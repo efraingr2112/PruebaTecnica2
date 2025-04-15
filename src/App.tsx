@@ -17,8 +17,10 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 import '@ionic/react/css/palettes/dark.system.css';
 import './theme/variables.css';
-import CustomerList from './pages/customer/CustomerList';
 import CustomersEdit from './pages/customer/CustomersEdit';
+import EmpleadosList from './pages/empleados/EmpleadosList';
+import EmpleadosEdit from './pages/empleados/EmpleadosEdit';
+
 
 setupIonicReact();
 
@@ -33,12 +35,19 @@ const App: React.FC = () => {
               <Redirect to="/page/costomers" />
               
             </Route>
-                <Route path="/page/costomers" exact={true}>
-                <CustomerList />
+                <Route path="/page/customers" exact={true}>
                 </Route> 
             
                 <Route path="/page/customer/:id" exact={true}>
                 <CustomersEdit />
+                </Route>
+                
+                <Route path="/page/empleados" exact={true}>
+                <EmpleadosList />
+                </Route> 
+            
+                <Route path="/page/empleados/:id" exact={true}>
+                <EmpleadosEdit />
                 </Route>
 
                 <Page />

@@ -1,18 +1,20 @@
 import {
   IonContent,
   IonIcon,
+  IonImg,
   IonItem,
   IonLabel,
   IonList,
   IonListHeader,
   IonMenu,
-  IonMenuToggle,
-  IonNote,
+  IonMenuToggle
 } from '@ionic/react';
-
+import { people, peopleOutline } from 'ionicons/icons';
 import { useLocation } from 'react-router-dom';
-import { archiveOutline, archiveSharp, bookmarkOutline, heartOutline, heartSharp, mailOutline, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp, aperture  } from 'ionicons/icons';
+import LogoImg from '../images/logo.png';
 import './Menu.css';
+
+
 
 interface AppPage {
   url: string;
@@ -23,43 +25,26 @@ interface AppPage {
 
 const appPages: AppPage[] = [
   {
-    title: 'Usuarios',
-    url: '/folder/customers',
-    iosIcon: mailOutline,
-    mdIcon: aperture
+    title: 'Clientes',
+    url: '/page/customers',
+    iosIcon: peopleOutline,
+    mdIcon: people
   },
   {
-    title: 'Outbox',
-    url: '/folder/Outbox',
-    iosIcon: paperPlaneOutline,
-    mdIcon: paperPlaneSharp
+    title: 'Empleados',
+    url: '/page/employees',
+    iosIcon: peopleOutline,
+    mdIcon: people
   },
   {
-    title: 'Favorites',
-    url: '/folder/Favorites',
-    iosIcon: heartOutline,
-    mdIcon: heartSharp
-  },
-  {
-    title: 'Archived',
-    url: '/folder/Archived',
-    iosIcon: archiveOutline,
-    mdIcon: archiveSharp
-  },
-  {
-    title: 'Trash',
-    url: '/folder/Trash',
-    iosIcon: trashOutline,
-    mdIcon: trashSharp
-  },
-  {
-    title: 'Spam',
-    url: '/folder/Spam',
-    iosIcon: warningOutline,
-    mdIcon: warningSharp
+    title: 'Proveedores',
+    url: '/page/suppliers',
+    iosIcon: peopleOutline,
+    mdIcon: people
   }
 ];
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
 const Menu: React.FC = () => {
@@ -69,13 +54,18 @@ const Menu: React.FC = () => {
     <IonMenu contentId="main" type="overlay">
       <IonContent>
         <IonList id="inbox-list">
-          <IonListHeader>Inbox</IonListHeader>
-          <IonNote>hi@ionicframework.com</IonNote>
+
+
+          <IonListHeader>
+            <IonImg src={LogoImg} />
+
+          </IonListHeader>
+
           {appPages.map((appPage, index) => {
             return (
               <IonMenuToggle key={index} autoHide={false}>
                 <IonItem className={location.pathname === appPage.url ? 'selected' : ''} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
-                  <IonIcon aria-hidden="true" slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
+                  <IonIcon slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
                   <IonLabel>{appPage.title}</IonLabel>
                 </IonItem>
               </IonMenuToggle>
@@ -83,15 +73,6 @@ const Menu: React.FC = () => {
           })}
         </IonList>
 
-        <IonList id="labels-list">
-          <IonListHeader>Labels</IonListHeader>
-          {labels.map((label, index) => (
-            <IonItem lines="none" key={index}>
-              <IonIcon aria-hidden="true" slot="start" icon={bookmarkOutline} />
-              <IonLabel>{label}</IonLabel>
-            </IonItem>
-          ))}
-        </IonList>
       </IonContent>
     </IonMenu>
   );

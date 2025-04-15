@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -5,43 +7,37 @@
 import { IonButton, IonButtons, IonCard, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonMenuButton, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { add, close, pencil } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useHistory, useParams, useRouteMatch } from 'react-router';
 import { removeCustomer, saveCustomer, searchCustomer } from './CustomerApi';
+import Customer from './Customer';
 
 
-const CustomerList: React.FC = () => {
+const CustomerList= () => {
   const { name } = useParams<{ name: string; }>();
-  const [usuarios, setUsuarios] = useState<any>([]);
+  const roueMatch: any = useRouteMatch("'page/customers/:id")
+  const [usuarios, setUsuarios] = useState<Customer[]>([]);
   const history = useHistory();
 
   useEffect(()=>{
     search();
-  }, []);
-  const search = ()=>{
-    const result = searchCustomer();
-    setUsuarios(result);
-  }
-  const remove =(id: string) =>{
-      removeCustomer(id);
+  }, [history.location.pathname]);
+  const search = async ()=>{
+    let id = roueMatch.params?.id;
+    if (id!=='new'){
+      let result = await searchCustomer(id);
+      editCustomer(result);
+    }
+  };   
+  async function remove(id: string) {
+      await removeCustomer(id);
       search();
 
-  }
-  const pruebaLocalStorage = () =>{
-    const ejemplo={
-      id: '1',
-      firstname: 'efrain',
-      lastname:'gutierrez',
-      email:'gr@gmail.com',
-      phone:'12345678',
-      address:'san jose',
     }
-    saveCustomer(ejemplo);
-  }
   const addCustomer = () =>{
     history.push('/page/customer/new');
   }
   const editCustomer = (id:string) =>{
-    history.push('/page/customer');
+    history.push('/page/customer/'+ id);
 
   }  
 
@@ -84,7 +80,7 @@ const CustomerList: React.FC = () => {
           <IonCol>Acciones</IonCol>
         </IonRow>
       </IonGrid>
-      {usuarios.map((usuario:any)=>
+      {usuarios.map((usuario:Customer)=>
        <IonRow>
        <IonCol>{usuario.firstname} {usuario.lastname}</IonCol>
          <IonCol>{usuario.email}</IonCol>
@@ -92,11 +88,11 @@ const CustomerList: React.FC = () => {
          <IonCol>{usuario.address}</IonCol>
          <IonCol>
            <IonButton color="primary" fill="clear" 
-           onClick={()=>editCustomer(usuarios.id)}>
+           onClick={()=>editCustomer(String(usuario.id))}>
              <IonIcon icon={pencil} slot="icon-only"/>
            </IonButton>
            <IonButton color="danger" fill="clear"
-           onClick={() => remove(usuarios.id)}>
+           onClick={() => remove(String(usuario.id))}>
              <IonIcon icon={close} slot="icon-only"/>
            </IonButton>
          </IonCol>
@@ -104,13 +100,6 @@ const CustomerList: React.FC = () => {
       )}
       
       </IonCard>
-
-
-      <IonButton  onClick= {pruebaLocalStorage}color="danger" fill="clear">
-              Prueba Local Storage
-      </IonButton>
-
-
 
       </IonContent>
     </IonPage>

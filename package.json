@@ -1,5 +1,5 @@
 {
-  "name": "Pansa_tech",
+  "name": "pansa_tech",
   "private": true,
   "version": "0.0.1",
   "type": "module",
@@ -52,5 +52,17 @@
     "vite": "~5.2.0",
     "vitest": "^0.34.6"
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efraingr2112/PruebaTecnica2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/efraingr2112/PruebaTecnica2/issues"
+  },
+  "homepage": "https://github.com/efraingr2112/PruebaTecnica2#readme"
 }

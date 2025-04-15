@@ -1,39 +1,40 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable prefer-const */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { IonButton, IonButtons, IonCard, IonCol, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonMenuButton, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { checkmark } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
 import { useHistory, useParams, useRouteMatch } from 'react-router';
-import Customer from './Customer';
-import { saveCustomer, searchCustomerId } from './CustomerApi';
+import Empleados from './Empleado';
+import { saveEmpleados, searchEmpleadosById } from './EmpleadosApi';
 
 
-const CustomerEdit: React.FC = () => {
+const EmpleadosEdit: React.FC = () => {
   const { name } = useParams<{ name: string; }>();
 
-  const [customer, setCustomer] = useState<Customer>({});
+  const [empleados, setEmpleados] = useState<Empleados>({});
   const history = useHistory();
 
-  const routeMatch: any = useRouteMatch("/page/customer/:id");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const routeMatch: any = useRouteMatch("/page/empleados/:id");
   const id = routeMatch?.params?.id;
 
   useEffect(() => {
     search();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history.location.pathname]);
 
   const search = async () => {
     if (id === 'new') {
-      setCustomer({});
+      setEmpleados({});
     } else {
-      let result = await searchCustomerId(id);
-      setCustomer(result);
+      // eslint-disable-next-line prefer-const
+      let result = await searchEmpleadosById(id);
+      setEmpleados(result);
     }
   }
 
   const save = async () => {
-    await saveCustomer(customer);
-    history.push('/page/customers');
+    await saveEmpleados(empleados);
+    history.push('/page/empleadoss');
   }
 
   return (
@@ -60,22 +61,22 @@ const CustomerEdit: React.FC = () => {
 
         <IonContent>
           <IonCard>
-            <IonTitle>{id === 'new' ? 'Agregar Cliente' : 'Editar Cliente'}</IonTitle>
+            <IonTitle>{id === 'new' ? 'Agregar Empleado' : 'Editar Empleado'}</IonTitle>
 
             <IonRow>
               <IonCol>
                 <IonItem>
                   <IonLabel position="stacked">Nombre</IonLabel>
-                  <IonInput onIonChange={e => customer.firstname = String(e.detail.value)}
-                    value={customer.firstname}> </IonInput>
+                  <IonInput onIonChange={e => empleados.firstname = String(e.detail.value)}
+                    value={empleados.firstname}> </IonInput>
                 </IonItem>
               </IonCol>
 
               <IonCol>
                 <IonItem>
                   <IonLabel position="stacked">Apellido</IonLabel>
-                  <IonInput onIonChange={e => customer.lastname = String(e.detail.value)}
-                    value={customer.lastname}> </IonInput>
+                  <IonInput onIonChange={e => empleados.lastname = String(e.detail.value)}
+                    value={empleados.lastname}> </IonInput>
                 </IonItem>
               </IonCol>
             </IonRow>
@@ -84,16 +85,16 @@ const CustomerEdit: React.FC = () => {
               <IonCol>
                 <IonItem>
                   <IonLabel position="stacked">Email</IonLabel>
-                  <IonInput onIonChange={e => customer.email = String(e.detail.value)}
-                    value={customer.email}> </IonInput>
+                  <IonInput onIonChange={e => empleados.email = String(e.detail.value)}
+                    value={empleados.email}> </IonInput>
                 </IonItem>
               </IonCol>
 
               <IonCol>
                 <IonItem>
                   <IonLabel position="stacked">Dirección</IonLabel>
-                  <IonInput onIonChange={e => customer.address = String(e.detail.value)}
-                    value={customer.address}> </IonInput>
+                  <IonInput onIonChange={e => empleados.address = String(e.detail.value)}
+                    value={empleados.address}> </IonInput>
                 </IonItem>
               </IonCol>
             </IonRow>
@@ -102,8 +103,21 @@ const CustomerEdit: React.FC = () => {
               <IonCol>
                 <IonItem>
                   <IonLabel position="stacked">Teléfono</IonLabel>
-                  <IonInput onIonChange={e => customer.phone = String(e.detail.value)}
-                    value={customer.phone}> </IonInput>
+                  <IonInput onIonChange={e => empleados.phone = String(e.detail.value)}
+                    value={empleados.phone}> </IonInput>
+                </IonItem>
+              </IonCol>
+
+              <IonCol>
+              </IonCol>
+            </IonRow>
+
+            <IonRow>
+              <IonCol>
+                <IonItem>
+                  <IonLabel position="stacked">Salario</IonLabel>
+                  <IonInput onIonChange={e => empleados.salary = Number(e.detail.value)}
+                    value={empleados.salary}> </IonInput>
                 </IonItem>
               </IonCol>
 
@@ -138,4 +152,8 @@ const CustomerEdit: React.FC = () => {
   );
 };
 
-export default CustomerEdit;
+export default EmpleadosEdit;
+
+
+
+
